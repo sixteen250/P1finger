@@ -2,6 +2,9 @@ package rule
 
 import (
 	"fmt"
+	"sync"
+	"time"
+
 	"github.com/P001water/P1finger/cmd"
 	"github.com/P001water/P1finger/cmd/vars"
 	"github.com/P001water/P1finger/libs/fileutils"
@@ -12,9 +15,6 @@ import (
 	"github.com/projectdiscovery/gologger"
 	"github.com/schollz/progressbar/v3"
 	"github.com/spf13/cobra"
-	"path/filepath"
-	"sync"
-	"time"
 )
 
 func init() {
@@ -61,7 +61,8 @@ func RuleRun() (err error) {
 
 	if vars.Options.UrlFile != "" {
 		var urlsFromFile []string
-		filePath := filepath.Join(vars.ExecDir, vars.Options.UrlFile)
+		// filePath := filepath.Join(vars.ExecDir, vars.Options.UrlFile)
+		filePath := vars.Options.UrlFile
 		urlsFromFile, err = fileutils.ReadLinesFromFile(filePath)
 		if err != nil {
 			gologger.Error().Msgf("%v", err)
