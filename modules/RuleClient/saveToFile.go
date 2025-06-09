@@ -3,14 +3,21 @@ package RuleClient
 import (
 	"encoding/json"
 	"fmt"
+	"os"
+	"path/filepath"
+	"strings"
+
 	"github.com/projectdiscovery/gologger"
 	"github.com/xuri/excelize/v2"
-	"os"
-	"strings"
 )
 
 func SaveToFile(DetectResult []DetectResult, output string) (err error) {
-	outputType := strings.Split(output, ".")[1]
+	// outputType := strings.Split(output, ".")[1]
+	// 使用 filepath.Ext() 获取扩展名，并去掉前面的点
+	outputType := strings.TrimPrefix(filepath.Ext(output), ".")
+
+	// 转换为小写以确保匹配
+	outputType = strings.ToLower(outputType)
 
 	switch outputType {
 	case "xlsx":
