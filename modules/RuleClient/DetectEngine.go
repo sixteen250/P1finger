@@ -129,6 +129,8 @@ func (r *RuleClient) Detect(target string) (DetectRst DetectResult, err error) {
 
 	if isRedirect {
 		DetectRst.WebTitle = p1fingerRedirectResp.WebTitle
+		DetectRst.RedirectUrlStatusCode = p1fingerRedirectResp.StatusCode
+		DetectRst.RedirectUrl = p1fingerRedirectResp.Url
 	}
 
 	r.RstShoot.AddElement(DetectRst)

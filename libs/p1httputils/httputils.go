@@ -4,13 +4,14 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"golang.org/x/text/encoding/simplifiedchinese"
 	"io"
 	"net/http"
 	"regexp"
 	"strings"
 	"time"
 	"unicode/utf8"
+
+	"golang.org/x/text/encoding/simplifiedchinese"
 )
 
 const (
@@ -72,11 +73,12 @@ func HttpGet(URL string, customClient *http.Client) (resp *http.Response, CusRes
 	}
 	defer response.Body.Close() // 在这里关闭 Body
 
+	CusResp.Url = response.Request.URL.String()
+
 	err = HandleResp2P1fingerResp(response, &CusResp)
 	if err != nil {
 		return
 	}
-
 	return response, CusResp, nil
 }
 
